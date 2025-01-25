@@ -1,0 +1,104 @@
+﻿@* @model ProductVM
+
+<div class="container my-5 p-4 bg-light shadow-sm rounded">
+    <form asp-controller="Product" asp-action="Edit">
+        <input asp-for="Product.Id" hidden />
+        <div class="border p-4 rounded shadow-sm">
+            <div class="row mb-3">
+                <h2 class="text-primary fw-bold mb-1">Edit Product</h2>
+                <p class="text-muted small">Update the details of the category below.</p>
+            </div>
+            <hr />
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Title" class="form-label col-sm-3 text-muted fw-semibold">Product Name</label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.Title" value="@Model?.Product.Title" placeholder="Enter Product Title" />
+                    <span class="text-danger small" asp-validation-for="Product.Title"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Description" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <textarea class="form-control shadow-sm" asp-for="Product.Description" value="@Model?.Product.Description" placeholder="Enter Description"></textarea>
+                    <span class="text-danger small" asp-validation-for="Product.Description"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.ISBN" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.ISBN" value="@Model?.Product.ISBN" placeholder="Enter ISBN" />
+                    <span class="text-danger small" asp-validation-for="Product.ISBN"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Author" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.Author" value="@Model?.Product.Author" placeholder="Enter Author" />
+                    <span class="text-danger small" asp-validation-for="Product.Author"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.ListPrice" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.ListPrice" value="@Model?.Product.ListPrice" placeholder="Enter ListPrice" />
+                    <span class="text-danger small" asp-validation-for="Product.ListPrice"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Price" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.Price" value="@Model?.Product.Price" placeholder="Enter Price" />
+                    <span class="text-danger small" asp-validation-for="Product.Price"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Price50" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.Price50" value="@Model?.Product.Price50" placeholder="Enter Price50" />
+                    <span class="text-danger small" asp-validation-for="Product.Price50"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.Price100" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.Price100" value="@Model?.Product.Price100" placeholder="Enter Price100" />
+                    <span class="text-danger small" asp-validation-for="Product.Price100"></span>
+                </div>
+            </div>
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.ImageURL" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <input class="form-control shadow-sm" asp-for="Product.ImageURL" value="@Model?.Product.ImageURL" placeholder="Enter Image URL" />
+                    <span class="text-danger small" asp-validation-for="Product.ImageURL"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row align-items-center">
+                <label asp-for="Product.CategoryId" class="form-label col-sm-3 text-muted fw-semibold"></label>
+                <div class="col-sm-9">
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+                    <span class="text-danger small" asp-validation-for="Product.CategoryId"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-check-circle me-1"></i> Update
+                    </button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+ *@

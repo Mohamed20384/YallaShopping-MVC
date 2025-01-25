@@ -1,0 +1,142 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="card shadow-lg border-0 mt-4 mx-auto" style="max-width: 480px; border-radius: 12px;">
+    <div class="card-header text-white text-center py-3" style="border-radius: 12px 12px 0 0; background: linear-gradient(135deg, #e6d0b0, black);">
+        @if(User.IsInRole(StaticDetails.Role_Admin))
+        {
+            <h3 class="mb-0" style="font-size: 1.5rem;">@ViewData["Title"] - ADMIN PORTAL</h3>
+        }
+        else
+        {
+        <h3 class="mb-0" style="font-size: 1.5rem;">@ViewData["Title"]</h3>
+        }
+    </div>
+    <div class="card-body p-4" style="background: #fcf8f5; border-radius: 0 0 12px 12px;">
+        <form id="registerForm" class="row g-3" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4 class="pb-2 mb-3 text-secondary text-center" style="font-weight: 600; color: #6a4b36; font-size: 1.2rem;">Create Account</h4>
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger text-center" role="alert" style="display: none; border-radius: 6px; padding: 0.5rem;"></div>
+
+            <div class="form-floating mb-3 col-12">
+                <input asp-for="Input.Email" class="form-control shadow-sm border-dark-subtle" autocomplete="username" placeholder="name@example.com" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.Email" class="text-muted ps-3">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.Name" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Full Name" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.Name" class="text-muted ps-3">Full Name</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.PhoneNumber" type="tel" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Phone Number" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.PhoneNumber" class="text-muted ps-3">Phone Number</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.Password" type="password" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Password" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.Password" class="text-muted ps-3">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Confirm Password" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.ConfirmPassword" class="text-muted ps-3">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.StreetAddress" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Street Address" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.StreetAddress" class="text-muted ps-3">Street Address</label>
+                <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.City" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="City" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.City" class="text-muted ps-3">City</label>
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.State" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="State" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.State" class="text-muted ps-3">State</label>
+                <span asp-validation-for="Input.State" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+                <input asp-for="Input.PostaCode" class="form-control shadow-sm border-dark-subtle" autocomplete="new-password" placeholder="Postal Code" required style="border-radius: 8px; border: 1px solid #b8936b;" />
+                <label asp-for="Input.PostaCode" class="text-muted ps-3">Postal Code</label>
+                <span asp-validation-for="Input.PostaCode" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole(StaticDetails.Role_Admin))
+            {
+                <div class="form-floating mb-3 col-12">
+                    <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select shadow-sm border-dark-subtle" required style="border-radius: 8px; border: 1px solid #b8936b;">
+                        <option disabled selected>--Select Role--</option>
+                    </select>
+                    <label asp-for="Input.Role" class="text-muted ps-3">Role</label>
+                </div>
+
+                <div class="form-floating mb-3 col-12">
+                    <select asp-for="Input.CompanyID" style="display:none;" asp-items="@Model.Input.CompanyList" class="form-select shadow-sm border-dark-subtle" style="border-radius: 8px; border: 1px solid #b8936b;">
+                    <option disabled selected>--Select Company--</option>
+                </select>
+            </div>
+            }
+            <div class="col-12">
+                <button id="registerSubmit" type="submit" class="btn w-100 btn-sm mt-2 shadow border-dark-subtle" style="border-radius: 8px; font-weight: 600; background: #b8936b; color: #fff;">
+                    Register
+                </button>
+            </div>
+        </form>
+        @if(!User.IsInRole(StaticDetails.Role_Admin))
+        {
+        <section class="mt-4">
+            <h4 class="text-center" style="font-weight: 600; color: #6a4b36; font-size: 1rem;">Or Register Using</h4>
+            <hr class="my-2" />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div class="text-muted text-center" style="font-size: 0.85rem;">
+                        <p>No external authentication services configured. <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="text-decoration-none">Learn more</a>.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-light shadow-sm btn-sm" name="provider" value="@provider.Name" title="Log in with @provider.DisplayName" style="min-width: 140px; border-radius: 20px; border-color: blue; color: blue; font-size: 0.85rem;">
+                                    <i class="bi bi-@provider.Name.ToLower() me-1"></i>@provider.DisplayName
+                                </button>
+                            </form>
+                        }
+                    </div>
+                }
+            }
+        </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#Input_Role').on('change', function () {
+                if ($(this).val() === 'Company') {
+                    $('#Input_CompanyID').show();
+                } else {
+                    $('#Input_CompanyID').hide();
+                }
+            });
+        });
+    </script>
+}

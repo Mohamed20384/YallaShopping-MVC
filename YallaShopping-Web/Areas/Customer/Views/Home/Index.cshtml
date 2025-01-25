@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Product>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section with Typing Effect</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+      
+        .hero-section {
+            background-color: black;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+            .hero-section .text-container {
+                z-index: 10;
+                position: relative;
+            }
+
+            .hero-section .typing-effect {
+                font-size: 2.5rem;
+                font-weight: bold;
+                border-right: 2px solid white;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 100%;
+                animation: blink-caret 0.7s step-end infinite;
+            }
+        50% {
+            border-color: white;
+        }
+
+        }
+
+        .hero-img img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero-section">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-white text-container">
+                    <h1 class="display-4 typing-effect" id="dynamic-text"></h1>
+                    <p class="lead mt-3">Talented designer making websites with .Net</p>
+                    
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img p-0">
+                    <img src="~/images/pexels-conojeghuo-375892.jpg" alt="Hero Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row pb-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-3 col-sm-6">
+                <div class="row p-2">
+                    <div class="col-12 p-1">
+                        <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                            @if (product.ProductImages != null && product.ProductImages.Count() > 0)
+                            {
+                                <img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounded" />
+                            }
+                            else
+                            {
+                                //display fake image
+                                <img src="https://placehold.co/500x600/png" class="card-img-top rounded" />
+
+                            }
+                            <div class="card-body pb-0">
+                                <div class="pl-1">
+                                    <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                                    <p class="card-title text-warning text-center">by <b>@product.Author</b></p>
+                                </div>
+                                <div class="pl-1">
+                                    <p class="text-dark text-opacity-75 text-uppercase text-center mb-0">List Price: <span class="text-decoration-line-through">@product.ListPrice.ToString("c")</span></p>
+                                </div>
+                                <div class="pl-1">
+                                    <p class="text-dark text-opacity-75 text-uppercase text-center">As low as:<span>@product.Price100.ToString("c")</span></p>
+                                </div>
+
+                            </div>
+                            <div>
+                                <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const textElement = document.getElementById("dynamic-text");
+            const textArray = [
+                "Yalla Shopping BookStore",
+                "Create Modern Solutions with .Net"
+            ];
+            let currentTextIndex = 0;
+            let charIndex = 0;
+
+            function typeText() {
+                if (charIndex < textArray[currentTextIndex].length) {
+                    textElement.textContent += textArray[currentTextIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeText, 100); 
+                } else {
+                    setTimeout(deleteText, 1000); 
+                }
+            }
+
+            function deleteText() {
+                if (charIndex > 0) {
+                    textElement.textContent = textArray[currentTextIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(deleteText, 50); 
+                } else {
+                    currentTextIndex = (currentTextIndex + 1) % textArray.length;
+                    setTimeout(typeText, 500); 
+                }
+            }
+
+            typeText(); 
+        });
+    </script>
+</body>
+
+</html>

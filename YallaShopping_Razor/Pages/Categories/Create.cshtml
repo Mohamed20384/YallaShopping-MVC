@@ -1,0 +1,38 @@
+﻿@page
+@model E_CommerceRazor_Temp.Pages.Categories.CreateModel
+<form  asp-page="/Categories/Create">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h3 class="text-primary">Create Category</h3>
+		</div>
+		<hr/>
+	
+		<div class="mb-3 row">
+			<label asp-for="Category.Name"></label>
+			<input class="form-control" asp-for="Category.Name" value="@Model.Category?.Name" />
+			<span class="text-danger" asp-validation-for="Category.Name"></span>
+		</div>
+		<div class="mb-3 row">
+			<label asp-for="Category.DisplayOrder"></label>
+			<input class="form-control" asp-for="Category.DisplayOrder" value="@Model.Category?.DisplayOrder" />
+			<span class="text-danger" asp-validation-for="Category.DisplayOrder"></span>
+
+		</div>
+		<div class="row">
+			<div class="col-6 col-md-3">
+				<button type="submit" class="btn btn-primary form-control"><i class="bi bi-plus"></i> Add</button>
+
+			</div>
+			<div class="col-6 col-md-3">
+				<a asp-page="/Categories/Index" class="btn btn-outline-secondary border form-control"><i class="bi bi-list"></i> Back to List</a>
+
+			</div>
+		</div>
+	</div>
+</form>
+@section Scripts{
+	@{
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

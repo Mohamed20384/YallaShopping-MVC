@@ -1,0 +1,72 @@
+﻿@model RoleManagementVM
+
+<div class="container my-5 p-4 bg-light shadow-sm rounded">
+    <div class="row mb-3 align-items-center">
+        <div class="col-12 text-center">
+            <h2 class="text-dark fw-bold mb-1">Manage <br />@Model?.ApplicationUser.Name <br /> Role</h2>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow rounded-3">
+        <div class="card-body p-4">
+            <form asp-controller="User" asp-action="RoleManagement" class="row g-3">
+                <input asp-for="ApplicationUser.Id" hidden/>
+                <div class="p-3 border rounded bg-white">
+                    <div class="mb-3 row align-items-center">
+                        <label asp-for="ApplicationUser.Name" class="form-label col-sm-3 text-muted fw-semibold">Category Name</label>
+                        <div class="col-sm-9">
+                            <input class="form-control shadow-sm" readonly asp-for="ApplicationUser.Name" value="@Model?.ApplicationUser.Name" placeholder="Enter category name" />
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-center">
+                        <label asp-for="ApplicationUser.Role" class="form-label col-sm-3 text-muted fw-semibold">Role</label>
+                        <div class="col-sm-9">
+                            <select asp-for="ApplicationUser.Role" id="ApplicationUser_Role" asp-items="@Model.RoleList" class="form-select"></select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-center" id="CompanyListContainer" style="display: none;">
+                        <label asp-for="ApplicationUser.CompanyId" class="form-label col-sm-3 text-muted fw-semibold">Company</label>
+                        <div class="col-sm-9">
+                            <select asp-for="ApplicationUser.CompanyId" id="ApplicationUser_CompanyId" asp-items="@Model.CompanyList" class="form-select"></select>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-success w-100 shadow-sm">
+                                <i class="bi bi-plus-circle me-1"></i> Update Role
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-action="Index" class="btn btn-outline-secondary w-100 shadow-sm">
+                                <i class="bi bi-arrow-left me-1"></i> Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            toggleCompanyList();
+
+            $('#ApplicationUser_Role').change(function () {
+                toggleCompanyList();
+            });
+
+            function toggleCompanyList() {
+                var selectedRole = $('#ApplicationUser_Role option:selected').text();
+                if (selectedRole === 'Company') {
+                    $('#CompanyListContainer').show();
+                } else {
+                    $('#CompanyListContainer').hide();
+                }
+            }
+        });
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@model Category
+
+<div class="container my-5 p-4 bg-light shadow-sm rounded">
+    <form asp-controller="Category" asp-action="Edit">
+        <input asp-for="Id" hidden />
+        <div class="border p-4 rounded shadow-sm">
+            <div class="row mb-3">
+                <h2 class="text-primary fw-bold mb-1">Edit Category</h2>
+                <p class="text-muted small">Update the details of the category below.</p>
+            </div>
+            <hr />
+
+            <div class="mb-3 row">
+                <label asp-for="Name" class="col-sm-3 col-form-label">Category Name:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="Name" value="@Model?.Name" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="DisplayOrder" class="col-sm-3 col-form-label">Display Order:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="DisplayOrder" value="@Model?.DisplayOrder" />
+                    <span class="text-danger" asp-validation-for="DisplayOrder"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-check-circle me-1"></i> Update
+                    </button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
